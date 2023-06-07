@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const { sequelize } = require('./db/db');
 const seed = require('./db/seedFn');
@@ -9,6 +10,10 @@ const { PORT = 5000 } = process.env;
 
 app.use(express.json());
 app.use(cors());
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../client/public/index.html'));
+});
 
 app.get('/api', (req, res) => {
   res.status(200).send({
